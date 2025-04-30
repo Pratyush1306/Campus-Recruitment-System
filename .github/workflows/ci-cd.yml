@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Java CI with Maven
 
 on:
   push:
@@ -8,32 +8,19 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
       with:
-        node-version: '18'
+        java-version: '17'
+        distribution: 'temurin'
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm test
-
-    - name: Build app
-      run: npm run build || echo "No build script defined"
-
-  # Optional: Deployment step (replace with your actual deployment)
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main'
-  #   steps:
-  #   - name: Deploy to server
-  #     run: echo "Deploying..."
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
 
