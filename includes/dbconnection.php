@@ -1,5 +1,5 @@
 <?php
-$con=mysqli_connect("localhost:3307", "root", "", "crmsdb");
+$con=mysqli_connect("db", "user", "pass", "crms");
 if(mysqli_connect_errno()){
 echo "Connection Fail".mysqli_connect_error();
 }
